@@ -7,3 +7,10 @@ mkdir -p Documents/backup
 rsync -zvr simple-php-website/ Documents/backup/
 # Copies the folder itself (with its contents) into dest. 
 sync -zvr simple-php-website  Documents/backup/
+#archive mode the time stamp  
+ rsync -avz simple-php-website/ Documents/backup/
+ # change the ownership 
+ # changes who owns the specified file (functions.php) , (user+group , sudo > administartor  )
+ sudo chown ikram:ikram simple-php-website/functions.php
+ # archive,verbose,compression of data 
+ sudo rsync -avz simple-php-website/ Documents/backup/ 
