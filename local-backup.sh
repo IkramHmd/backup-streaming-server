@@ -14,3 +14,9 @@ sync -zvr simple-php-website  Documents/backup/
  sudo chown ikram:ikram simple-php-website/functions.php
  # archive,verbose,compression of data 
  sudo rsync -avz simple-php-website/ Documents/backup/ 
+ #USING RSYNC OVER THE NETWORK
+ ip address 
+ # 172.28.39.254 .. Ethernet interface.
+mkdir Desktop/backup
+# log in into the remote machine 
+ssh 172.28.39.254
