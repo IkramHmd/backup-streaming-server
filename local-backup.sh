@@ -18,5 +18,18 @@ sync -zvr simple-php-website  Documents/backup/
  ip address 
  # 172.28.39.254 .. Ethernet interface.
 mkdir Desktop/backup
-# log in into the remote machine 
-ssh 172.28.39.254
+# intalled centOS machine > the distination 
+#in centOS8 
+# create directory 
+mkdir Desktop/backup 
+# in ubuntu log in into the remote machine  
+ssh 172.28.39.254 
+#IN CENTOS8 
+# create a new user on CentOS 8 that you will use for SSH and file transfer.
+adduser ikram89
+yum install -y passwd
+yum install -y shadow-utils
+echo "ikram89:***********" | chpasswd 
+#IN UBUNTO 
+# transfer files from local system to remote one 
+rsync -avz simple-php-website/ 172.28.39.254:~/Desktop/backup/
