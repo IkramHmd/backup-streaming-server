@@ -31,3 +31,10 @@ cd Desktop /
 ls -l backup 
 # change in one of files 
 cd simple-php-website 
+vim config.php
+cd ..
+rsync -avz simple-php-website/ ikram2003@192.168.9.3:~/Desktop/backup/
+# only config.php is uploaded 
+# another case where you deleted file from your local machine reverse
+rsync -avz  ikram2003@192.168.9.3:~/Desktop/backup/ simple-php-website/
+# ADVANCED SSH OPTIONS WITH  
