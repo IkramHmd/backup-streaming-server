@@ -17,19 +17,17 @@ sync -zvr simple-php-website  Documents/backup/
  #USING RSYNC OVER THE NETWORK
  ip address 
  # 172.28.39.254 .. Ethernet interface.
-mkdir Desktop/backup
-# intalled centOS machine > the distination 
-#in centOS8 
+mkdir Desktop/backup 
+#in Oracle VM ubuntu 
 # create directory 
 mkdir Desktop/backup 
 # in ubuntu log in into the remote machine  
-ssh 172.28.39.254 
-#IN CENTOS8 
-# create a new user on CentOS 8 that you will use for SSH and file transfer.
-adduser ikram89
-yum install -y passwd
-yum install -y shadow-utils
-echo "ikram89:***********" | chpasswd 
-#IN UBUNTO 
+ssh ikram2003@192.168.9.3 
+#IN WSL UBUNTU  
 # transfer files from local system to remote one 
-rsync -avz simple-php-website/ 172.28.39.254:~/Desktop/backup/
+rsync -avz simple-php-website/ ikram2003@192.168.9.3:~/Desktop/backup/
+# VM 
+cd Desktop /
+ls -l backup 
+# change in one of files 
+cd simple-php-website 
