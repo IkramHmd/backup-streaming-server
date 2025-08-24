@@ -16,16 +16,16 @@ sync -zvr simple-php-website  Documents/backup/
  sudo rsync -avz simple-php-website/ Documents/backup/ 
  #USING RSYNC OVER THE NETWORK
  ip address 
- # 172.28.39.254 .. Ethernet interface.
+ # .. Ethernet interface.
 mkdir Desktop/backup 
 #in Oracle VM ubuntu 
 # create directory 
 mkdir Desktop/backup 
 # in ubuntu log in into the remote machine  
-ssh ikram2003@192.168.9.3 
+ssh ikram2003@192.168.x.x 
 #IN WSL UBUNTU  
 # transfer files from local system to remote one 
-rsync -avz simple-php-website/ ikram2003@192.168.9.3:~/Desktop/backup/
+rsync -avz simple-php-website/ ikram2003@192.168.x.x:~/Desktop/backup/
 # VM 
 cd Desktop /
 ls -l backup 
@@ -33,8 +33,37 @@ ls -l backup
 cd simple-php-website 
 vim config.php
 cd ..
-rsync -avz simple-php-website/ ikram2003@192.168.9.3:~/Desktop/backup/
+rsync -avz simple-php-website/ ikram2003@192.168.x.x:~/Desktop/backup/
 # only config.php is uploaded 
 # another case where you deleted file from your local machine reverse
-rsync -avz  ikram2003@192.168.9.3:~/Desktop/backup/ simple-php-website/
+rsync -avz  ikram2003@192.168.x.x:~/Desktop/backup/ simple-php-website/
 # ADVANCED SSH OPTIONS WITH  
+# generate public-private (pair) key 
+ssh-keygen 
+ls -l .ssh/
+# private & public keys 
+ssh-copy-id ikram2003@192.168.x.x
+#in remote 
+cat .ssh/authorized_keys
+# content of this file >> crypto looking this text is exactly 
+# i have in local one .ssh/id_ed25519.pub
+ssh ikram2003@192.168.x.x
+# i'll be insite remote machine without passwd 
+rsync -avz simple-php-website/ ikram2003@192.168.x.x:~/Desktop/backup/
+# no asking passwork 
+crontab -e 
+# 0 0 * * * rsync -avz /root/dell/simple-php-website/ ikram2003@192.168.x.x:~/Desktop/backup/ 
+# this preview command will run every day at 00:00   
+# want to remote machine over SSH without 22 default port 
+#in reomte 
+sudo vim /etc/ssh/sshd_config
+# see 22 port then change it for security 
+# reflect new changes 
+sudo services sshd restart 
+ssh local_add
+# connection refused 
+ssh -p 22222 local_add
+# be sure open firewall at remote host 
+#in local
+rsync -avz -e "ssh -p 22222"simple-php-website/ ikram2003@192.168.x.x:~/Desktop/backup/
+# -e allow arbitrary SSH commands 
