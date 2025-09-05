@@ -67,3 +67,22 @@ ssh -p 22222 local_add
 #in local
 rsync -avz -e "ssh -p 22222"simple-php-website/ ikram2003@192.168.x.x:~/Desktop/backup/
 # -e allow arbitrary SSH commands 
+# ADVENCED RSYNC BACKUP OTIONS 
+cd simple-php-website
+dd if=/dev/zero of=data.bin bs=102400 count=10240
+cd ..
+rsync -avz --progress -e "ssh -p 22" simple-php-website/ ikram2003@192.168.9.3:~/Desktop/backup/
+rm simple-php-website/data.bin 
+# it will removed from local not at the remote 
+# delete in the remote from local 
+rsync -avz --delete -e "ssh -p 22" simple-php-website/ ikram2003@192.168.9.3:~/Desktop/backup/
+#update only the files that exist on both the source and the destination
+rsync -avz --existing -e "ssh -p 22" simple-php-website/ ikram2003@192.168.9.3:~/Desktop/backup/
+# just interested in showing the diff between the source and the destination 
+rsync -avzi -e "ssh -p 22" simple-php-website/ ikram2003@192.168.9.3:~/Desktop/backup/
+cd simple-php-website 
+mkdir images 
+cd images/
+ls -ltr 
+touch file{1..10}.jpg
+
